@@ -1,86 +1,79 @@
-# 🚀 Terraform EC2 CI/CD Deployment
+# 🚀 Terraform EC2 CI/CD Project
 
-This project demonstrates how to provision an **AWS EC2 instance** using **Terraform**, and automate the deployment using **GitHub Actions** in a CI/CD pipeline.
+This project demonstrates a complete **CI/CD pipeline** for provisioning an **EC2 instance** on AWS using **Terraform**, automated through **GitHub Actions**.
 
----
-
-## 🧰 Tools & Technologies
-
-- **Terraform** – Infrastructure as Code (IaC)
-- **AWS EC2** – Virtual Server Provisioning
-- **GitHub Actions** – CI/CD Automation
-- **Ubuntu** – EC2 Instance OS
+![Build Status](https://github.com/LMorrison-cyber/TerraformEC2/actions/workflows/deploy.yml/badge.svg)
 
 ---
 
-## 📊 Architecture Overview
+## 📸 Architecture Diagram
 
-This diagram illustrates the CI/CD pipeline used in this project:
-
-![CI/CD Architecture](./assets/architecture.png)
+![Architecture](architecture.png)
 
 ---
 
-## 📂 Project Structure
+## 🛠️ Tech Stack
 
-```bash
-terraform-ec2-cicd/
-├── .github/workflows/
-│   └── deploy.yml
-├── terraform/
-│   ├── main.tf
-│   ├── variables.tf
-│   └── outputs.tf
-├── assets/
-│   └── architecture.png
-└── README.md
-⚙️ GitHub Actions Workflow
-The GitHub Actions workflow (deploy.yml) is triggered on pushes to the main branch. It runs Terraform commands to provision and deploy infrastructure to AWS:
+- **Terraform** — Infrastructure as Code
+- **AWS EC2** — Compute resource
+- **GitHub Actions** — CI/CD pipeline
+- **Ubuntu** — Operating System
 
-terraform init
+---
 
-terraform plan
+## ⚙️ Workflow Overview
 
-terraform apply
+1. Push code to `main` branch
+2. GitHub Actions triggers the workflow
+3. Terraform initializes and runs `plan` & `apply`
+4. EC2 instance is created in the configured region
 
-Secrets are securely managed via GitHub Repository Settings:
+---
+
+## 🧪 CI/CD Pipeline
+
+```yaml
+# .github/workflows/deploy.yml
+on:
+  push:
+    branches: [main]
+Environment Secrets Required
+Set the following in your repo’s Settings > Secrets and Variables > Actions:
 
 AWS_ACCESS_KEY_ID
 
 AWS_SECRET_ACCESS_KEY
 
-✅ Terraform Output Example
-hcl
+📂 Project Structure
+bash
+Copy
+Edit
+terraform-ec2-cicd/
+│
+├── .github/workflows/deploy.yml     # GitHub Actions workflow
+├── terraform/                       # Terraform config files
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+├── README.md
+└── architecture.png                 # Diagram of the setup
+🧾 Example Terraform Output
+makefile
 Copy
 Edit
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-instance_public_ip = "3.85.XXX.XXX"
-🧪 How to Use
-Clone this repo
-git clone https://github.com/LMorrison-cyber/TerraformEC2.git
+instance_public_ip = "3.238.xxx.xxx"
+✅ To-Do / Improvements
+ Add automated instance cleanup
 
-Navigate into the project folder
-cd TerraformEC2/terraform
+ Integrate with Ansible or Docker
 
-Initialize Terraform
-terraform init
+ Add monitoring/alerting via CloudWatch
 
-Apply changes (manually or wait for CI/CD)
-terraform apply
+📬 Contact
+Feel free to reach out via GitHub for collaboration or feedback!
 
-🛡 Security
-✅ No sensitive information is hardcoded
-✅ AWS credentials are stored as GitHub Secrets
 
-🏁 Future Improvements
-Add remote state backend with S3 and DynamoDB
-
-Implement rolling deployment with EC2 Autoscaling
-
-Add monitoring & alerting
-
-💡 License
-MIT © 2025 LMorrison-cyber
